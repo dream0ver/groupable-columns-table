@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css"
+import { useState } from "react"
+import { list } from "./data"
+import GroupableTable from "./GroupableTable"
 function App() {
+  const [groupby, setGroupby] = useState("")
+  const COLUMNS = [
+    {
+      header: "Server Name",
+      keyName: "serverName",
+      groupable: false,
+    },
+    {
+      header: "Location",
+      keyName: "location",
+      groupable: true,
+    },
+    {
+      header: "Environment",
+      keyName: "environment",
+      groupable: true,
+    },
+  ]
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <section>
+      <button onClick={() => setGroupby("")}>Clear Grouping</button>
+      <GroupableTable
+        COLUMNS={COLUMNS}
+        DATA={list}
+        groupby={groupby}
+        setGroupby={setGroupby}
+      />
+    </section>
+  )
 }
-
-export default App;
+export default App
